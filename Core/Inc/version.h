@@ -7,14 +7,14 @@
 #else
 #define VERSION "0.81"		
 #endif
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
-//‚±‚±‚Í¶‚ÌPC‚ÅC³
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
+//‚±‚±‚Í¶‚ÌPC‚ÅC³10
 #endif
