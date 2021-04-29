@@ -30,49 +30,7 @@
 /*		   0～１２７＝右回転 255～128は左回転 0がセンター		*/
 /*		(7)LOCKｲﾍﾞﾝﾄは前回はUNLOCKの場合のみ発行される			*/
 /*==============================================================*/
-enum {
-	/* 0x00---0x0f:イベントの割り当ては禁止	*/
-	QAPEV_NONE = 0,				/* イベントなし判定用								*/
-	/*                             	イベント		|	付加情報					*/
 
-	/* アプリケーション用のイベントをここに追加してはいけない						*/
-
-	QAPEV_TSTRX	= (uint8_t)0x20,	/* テスト受信								0x30*/
-	QAPEV_TST1,						/* テスト予約								0x31*/
-	QAPEV_TST2,						/* テスト予約								0x32*/
-	
-	/* アプリケーション用のイベントを追加する場合にはこの間に追加する				*/
-
-
-	QAPEV_INIT = (uint8_t)0x40,		/* 初期イベント								0x40*/
-	QAPEV_CMDA,						/* CMD A受信								0x41*/
-	QAPEV_CMDB,						/* CMD B受信								0x42*/
-	QAPEV_CMDC,						/* CMD C受信								0x43*/
-	QAPEV_CMDD,						/* CMD D受信								0x44*/
-	QAPEV_CMDE,						/* CMD E受信								0x45*/
-	QAPEV_CMDF,						/* CMD F受信								0x46*/
-	QAPEV_CMDG,						/* CMD G受信								0x47*/
-    QAPEV_CMDH,                     /* CMD H受信                                0x48*/
-	QAPEV_CMDI,						/* CMD I受信								0x49*/
-	QAPEV_CMDJ,						/* CMD J受信								0x4a*/
-	QAPEV_CMDK,						/* CMD K受信								0x4b*/
-    QAPEV_CMDL,                     /* CMD L送信                                0x4c*/
-    QAPEV_CMDM,                     /* CMD M送信                                0x4d*/
-	QAPEV_CMDN,						/* CMD N送信								0x4e*/
-	QAPEV_CMDO, 					/* CMD O送信								0x4f*/
-	QAPEV_CMDP,						/* CMD P送信								0x50*/
-	QAPEV_CMDQ,						/* CMD Q送信   								0x51*/
-	QAPEV_CMDR,						/* CMD R送信								0x52*/
-	QAPEV_CMDS,						/* CMD S送信								0x53*/
-	QAPEV_CMDT,						/* CMD T送信								0x54*/
-	QAPEV_CMDU,						/* CMD U送信								0x55*/
-
-	/* タイマーイベントforアプリ	*/
-	QAPEV_TMEVT = (uint8_t)0x60,	/* タイマUPイベント	60h以上はタイマイベント	*/
-	QAPEV_TSTTM,					/* テストタイマ								0x61*/
-
-	QAPEV_END	= (U1)0xFF,			/* 終端										0xFF*/
-};
 
 
 // Card Reader COMMAND 
@@ -112,6 +70,7 @@ const U1 TBL_STR_SETCOMMOD2[] =		{1, 0x00};
 const U1 TBL_STR_REQMODE1[] =		{2, 0x90,0x00};
 const U1 TBL_STR_REQMODE2[] =		{2, 0x92,0x00};
 const U1 TBL_STR_REQMODE3[] =		{2, 0x90,0x00};
+const U1 TBL_STR_TERM[] =			{1, 0x00};
 //const U1 TBL_STR_[] =		{	};
 
 
@@ -124,6 +83,8 @@ const ST_CRDATA CR_TX_INI_DATA_TBL[] = {
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE1[0]		},			// 
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE2[0]		},			// 
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE3[0]		},			// 
+
+	{ 0x00,					&TBL_STR_TERM[0]			},			//終端 
 };
 
 
@@ -136,6 +97,8 @@ const ST_CRDATA CR_TX_NOR_DATA_TBL[] = {
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE1[0]		},			// 
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE2[0]		},			// 
 	{ CR_COM_REQMOD,		&TBL_STR_REQMODE3[0]		},			// 
+
+	{ 0x00,					&TBL_STR_TERM[0]			},			//終端 
 };
 
 
@@ -163,6 +126,8 @@ const ST_CRDATA YP_TX_NOR_DATA_TBL[] = {
 	{ YP_COM_RESET,			&TBL_STR_ANSRESET[0]		},			// 
 	{ YP_COM_REQKIND,		&TBL_STR_ANSKIND[0]			},			// 
 	{ YP_COM_IDDATA,		&TBL_STR_ANSDATA[0]			},			// 
+
+	{ 0x00,					&TBL_STR_TERM[0]			},			//終端 
 
 };
 

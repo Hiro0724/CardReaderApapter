@@ -7,19 +7,4 @@
 #else
 #define VERSION "0.81"		
 #endif
-//kokohamiginoPC 5
-//kokohamiginoPC 5
-//kokohamiginoPC 5
-//kokohamiginoPC 5
-//kokohamiginoPC 5
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
-//Ç±Ç±ÇÕç∂ÇÃPCÇ≈èCê≥10
 #endif

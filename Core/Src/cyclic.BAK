@@ -27,7 +27,6 @@
 
 
 #include "main.h"
-#include "gps.h"
 #include "gpsctl.h"
 #include "ypserial.h"
 #include "cyclic.h"
@@ -128,9 +127,9 @@ void CyclicTaskEntry(void const * argument)
 #endif
 // TEST LED CONTROL
 
-
-
 		}
+	    osDelay(1);
+
     }
 }
 

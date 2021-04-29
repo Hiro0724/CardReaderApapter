@@ -1,4 +1,4 @@
-cyclic.c:60:6:Cyclic_Init	8	static
-cyclic.c:78:13:cyclic_routine	8	static
-cyclic.c:95:6:CyclicTaskEntry	40	static
-cyclic.c:142:6:CallbackCyclicTimer	16	static
+cyclic.c:58:6:Cyclic_Init	8	static
+cyclic.c:76:13:cyclic_routine	8	static
+cyclic.c:93:6:CyclicTaskEntry	40	static
+cyclic.c:140:6:CallbackCyclicTimer	16	static

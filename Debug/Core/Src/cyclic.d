@@ -30,8 +30,7 @@ Core/Src/cyclic.o: ../Core/Src/cyclic.c ../Core/Inc/main.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart_ex.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_ll_system.h \
- ../Core/Inc/common.h ../Core/Inc/gps.h ../Core/Inc/gpsctl.h \
- ../Core/Inc/ypserial.h ../Core/Inc/cyclic.h \
+ ../Core/Inc/common.h ../Core/Inc/ypserial.h ../Core/Inc/cyclic.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -115,10 +114,6 @@ Core/Src/cyclic.o: ../Core/Src/cyclic.c ../Core/Inc/main.h \
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_ll_system.h:
 
 ../Core/Inc/common.h:
-
-../Core/Inc/gps.h:
-
-../Core/Inc/gpsctl.h:
 
 ../Core/Inc/ypserial.h:
 

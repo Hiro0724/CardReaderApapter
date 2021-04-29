@@ -27,8 +27,6 @@
 
 
 #include "main.h"
-#include "gps.h"
-#include "gpsctl.h"
 #include "ypserial.h"
 #include "cyclic.h"
 #include "cmsis_os.h"
