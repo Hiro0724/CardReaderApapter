@@ -1,0 +1,36 @@
+2021-04-12 10:15:24,592 [INFO] Activator:176 - 
+
+
+2021-04-12 10:15:24,592 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-12 10:15:31,462 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-12 10:15:31,468 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
+2021-04-16 08:40:29,145 [INFO] Activator:176 - 
+
+
+2021-04-16 08:40:29,145 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-16 08:41:08,349 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-16 08:41:10,354 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
+2021-04-19 09:17:54,691 [INFO] Activator:176 - 
+
+
+2021-04-19 09:17:54,693 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-19 09:21:13,145 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-19 09:21:13,145 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
+2021-04-19 09:23:46,190 [INFO] Activator:176 - 
+
+
+2021-04-19 09:23:46,190 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-19 09:26:04,971 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-19 09:26:04,986 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
+2021-04-19 09:26:19,673 [INFO] Activator:176 - 
+
+
+2021-04-19 09:26:19,673 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-19 09:26:57,366 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-19 09:26:57,366 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
+2021-04-22 10:29:19,087 [INFO] Activator:176 - 
+
+
+2021-04-22 10:29:19,105 [INFO] Activator:177 - !SESSION log4j initialized
+2021-04-22 10:29:31,821 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] DevStyle: AutoStart ???G???[
+2021-04-22 10:29:31,828 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] java.lang.IllegalArgumentException: java.io.FileNotFoundException: org.eclipse.core.runtime\.settings\org.eclipse.e4.ui.css.swt.theme.prefs (?w?????p?X?????????????B)
