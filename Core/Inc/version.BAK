@@ -2,13 +2,6 @@
 #define __VERSION_H__
 
 #define REVRUN_DEBUG	1	
-<<<<<<< HEAD
-=======
-
-
-
-//test
->>>>>>> 1874485dbbe3e3856c89b44b52d68d6e2d629602
 #if REVRUN_DEBUG==0
 #define VERSION "0.80"		
 #else
