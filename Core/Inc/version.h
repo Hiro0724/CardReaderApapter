@@ -7,5 +7,9 @@
 #else
 #define VERSION "0.81"		
 #endif
-
+//kokohamiginoPC 5
+//kokohamiginoPC 5
+//kokohamiginoPC 5
+//kokohamiginoPC 5
+//kokohamiginoPC 5
 #endif
