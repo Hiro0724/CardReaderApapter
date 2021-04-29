@@ -3,6 +3,10 @@
 
 #define REVRUN_DEBUG	1	
 
+ƒeƒXƒg
+
+
+
 //test
 #if REVRUN_DEBUG==0
 #define VERSION "0.80"		
