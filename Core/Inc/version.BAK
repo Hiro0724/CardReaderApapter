@@ -1,11 +1,11 @@
 #ifndef __VERSION_H__
 #define __VERSION_H__
 
-#define REVRUN_DEBUG	1	//0:type1警報長さ３ｓ通常 1:type1警報長さ１０ｓ
+#define REVRUN_DEBUG	1	
 #if REVRUN_DEBUG==0
-#define VERSION "0.80"		//2020/10/01	警告音長さ３ｓ（通常）、type2の枠内ディレーなし、type4は警告音はなし、100B2002.bin １０月２日版
+#define VERSION "0.80"		
 #else
-#define VERSION "0.81"		//2020/10/01	警告音長さ１０ｓ（確認用）、type2の枠内ディレーあり、type4は警告音はなし、100B2002.bin １０月２日版
+#define VERSION "0.81"		
 #endif
 
 #endif
