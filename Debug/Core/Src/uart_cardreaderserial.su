@@ -17,4 +17,4 @@ uart_cardreaderserial.c:586:6:CrSerialTxTaskEntry	56	static
 uart_cardreaderserial.c:620:6:UART1_TxCpltCallback	8	static
 uart_cardreaderserial.c:635:13:tx_cr_serial	40	static
 uart_cardreaderserial.c:672:13:parse_cr_serial	32	static
-uart_cardreaderserial.c:711:6:req_tx_cr_serial	24	static
+uart_cardreaderserial.c:706:6:req_tx_cr_serial	24	static

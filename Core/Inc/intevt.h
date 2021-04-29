@@ -43,14 +43,14 @@ typedef struct{
 }ST_CRDATA;
 
 							   //   LEN DATA
-const U1 TBL_STR_SETINVENTORY[] =	{8,	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-const U1 TBL_STR_SETCOMMOD1[] =		{1,	0x00};
-const U1 TBL_STR_SETMODE[] =		{7,	0x00,0x00,0x00,0x80,0x00,0x00,0x00};
-const U1 TBL_STR_SETCOMMOD2[] =		{1, 0x00};
-const U1 TBL_STR_REQMODE1[] =		{2, 0x90,0x00};
-const U1 TBL_STR_REQMODE2[] =		{2, 0x92,0x00};
-const U1 TBL_STR_REQMODE3[] =		{2, 0x90,0x00};
-const U1 TBL_STR_TERM[] =			{1, 0x00};
+const U2 TBL_STR_SETINVENTORY[] =	{8,	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+const U2 TBL_STR_SETCOMMOD1[] =		{1,	0x00};
+const U2 TBL_STR_SETMODE[] =		{7,	0x00,0x00,0x00,0x80,0x00,0x00,0x00};
+const U2 TBL_STR_SETCOMMOD2[] =		{1, 0x00};
+const U2 TBL_STR_REQMODE1[] =		{2, 0x90,0x00};
+const U2 TBL_STR_REQMODE2[] =		{2, 0x92,0x00};
+const U2 TBL_STR_REQMODE3[] =		{2, 0x90,0x00};
+const U2 TBL_STR_TERM[] =			{1, 0x00};
 //const U1 TBL_STR_[] =		{	};
 
 
@@ -93,10 +93,10 @@ const ST_CRDATA CR_TX_NOR_DATA_TBL[] = {
 
 
 							   //   LEN DATA
-const U1 TBL_STR_ANSSTATUS[] =		{2,	0x00,0x00};
-const U1 TBL_STR_ANSRESET[] =		{1,	0x00};
-const U1 TBL_STR_ANSKIND[] =		{1,	0x00};
-const U1 TBL_STR_ANSDATA[] =		{15, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 };
+const U2 TBL_STR_ANSSTATUS[] =		{2,	0x00,0x00};
+const U2 TBL_STR_ANSRESET[] =		{1,	0x00};
+const U2 TBL_STR_ANSKIND[] =		{1,	0x00};
+const U2 TBL_STR_ANSDATA[] =		{15, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 };
 
 
 
@@ -127,8 +127,6 @@ const ST_CRDATA YP_TX_NOR_DATA_TBL[] = {
 /* [ ïœêîêÈåæ ]                                         		*/
 /* 																*/
 /*==============================================================*/
-
-
 
 
 

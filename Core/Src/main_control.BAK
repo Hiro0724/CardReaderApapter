@@ -190,7 +190,7 @@ void MAIN_Init( void )
 static void init_cr_tx_dataset(void)
 {
 	const ST_CRDATA *ans;
-	U1 *pp;
+	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
@@ -222,8 +222,6 @@ static void init_cr_tx_dataset(void)
 	}
 
 	// コマンドセット
-
-
 
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
@@ -360,8 +358,7 @@ void MainControlTaskEntry(void const * argument)
 							break;
 
     					default:
-	    					return false;
-
+							break;
 					}
 				}
        	osMailFree(MainControlMailHandle, p_Rxmail);
@@ -456,12 +453,6 @@ void req_chgkind( U1 *p_kind)
 	read_cardkind.byte = *p_kind;	 
 
 }
-
-
-
-
-
-
 
 
 //******************************************

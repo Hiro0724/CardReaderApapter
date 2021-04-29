@@ -40,6 +40,9 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+extern 	void Cyclic_Init(void);
+
+
 
 #define YP_SERIAL_BUFF_MAX  (20)
 

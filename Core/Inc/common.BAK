@@ -112,12 +112,6 @@ typedef union{
 #define U2_MAX  USHRT_MAX
 #define U4_MAX  ULONG_MAX
 
-#define S1_MAX  SCHAR_MAX
-#define S1_MIN  SCHAR_MIN
-#define S2_MAX  SHRT_MAX
-#define S2_MIN  SHRT_MIN
-#define S4_MAX  LONG_MAX
-#define S4_MIN  LONG_MIN
 
 /* bit’è‹` */
 #define	BIT0	((U1)0x01)

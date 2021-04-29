@@ -40,6 +40,9 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+extern 	Cyclic_Init(void);
+
+
 
 #define YP_SERIAL_BUFF_MAX  (20)
 
@@ -57,6 +60,14 @@ typedef struct
     int len;
     U1  buff[CR_SERIAL_BUFF_MAX];
 }CrSerialBuff_t;
+
+typedef struct
+{
+    int status;
+    int len;
+    U1  buff[CR_SERIAL_BUFF_MAX];
+}MainControlBuff_t;
+
 
 #define RX_YPSERIAL  (0)
 #define RX_CRSERIAL  (1)

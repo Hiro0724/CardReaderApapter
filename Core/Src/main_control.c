@@ -43,6 +43,7 @@
 extern osMailQId MainControlMailHandle;
 
 extern void	req_tx_cr_serial( U1 src_adr, U1 command, const U1 *p_data, U1 len );
+extern void	req_tx_yp_serial( U1 src_adr, U1 command, const U1 *p_data, U1 len );
 
 
 static Bool parse_yprx_serial( const U1 *p_buff, int len );
@@ -190,7 +191,7 @@ void MAIN_Init( void )
 static void init_cr_tx_dataset(void)
 {
 	const ST_CRDATA *ans;
-	U1 *pp;
+	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
@@ -222,8 +223,6 @@ static void init_cr_tx_dataset(void)
 	}
 
 	// コマンドセット
-
-
 
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
@@ -360,8 +359,7 @@ void MainControlTaskEntry(void const * argument)
 							break;
 
     					default:
-	    					return false;
-
+							break;
 					}
 				}
        	osMailFree(MainControlMailHandle, p_Rxmail);

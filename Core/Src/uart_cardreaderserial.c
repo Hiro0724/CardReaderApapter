@@ -672,7 +672,6 @@ static void tx_cr_serial( U1 dst_adr, CRSerialCmd_e cmd, const U1 *p_data, int d
 static Bool parse_cr_serial( const U1 *p_buff, int len )
 {
 
-
 	// CHECKSUM判定
     if( cr_serial_checksum(p_buff) != p_buff[idx_sum(p_buff)] )
     {
@@ -684,10 +683,6 @@ static Bool parse_cr_serial( const U1 *p_buff, int len )
     {
         return false;
     }
-
-	// アドレス設定
-    U1 src_adr = GET_ADR;
-
 
 	// メイン制御へデータ送信   
    	MainControlBuff_t *p_mail = osMailAlloc(MainControlMailHandle, osWaitForever);

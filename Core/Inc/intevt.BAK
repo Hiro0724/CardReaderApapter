@@ -12,26 +12,6 @@
 #ifndef INTEVT_H
 #define INTEVT_H
 
-/*==============================================================*/
-/* [ 定義宣言 ]                                         		*/
-/* 																*/
-/*==============================================================*/
-/*==============================================================*/
-/* [ 上位タスク発行イベント定義宣言 ]                           */
-/* 	アプリーケションで編集前のイベント							*/
-/*  注意：														*/
-/*		(1)キーの連続検出はカーソルキーのみ						*/
-/*		(2)キーの連続件検出か通常のキー検出かの判定は付加情報	*/
-/*		   連続押下はキー検出から1秒後に100ms周期で発行			*/
-/*		(3)FUNC+Xのｲﾍﾞﾝﾄはｱﾌﾟﾘで編集すること					*/
-/*		(4)DLEYイベントの秒数は付加情報を参照					*/
-/*		(5)タイマイベントではアプリでｵｰﾄﾊﾟﾜｰｵﾌ以降に設定		*/
-/*		(6)ロータリー検出では、回転数は付加情報に格納			*/
-/*		   0～１２７＝右回転 255～128は左回転 0がセンター		*/
-/*		(7)LOCKｲﾍﾞﾝﾄは前回はUNLOCKの場合のみ発行される			*/
-/*==============================================================*/
-
-
 
 // Card Reader COMMAND 
 #define CR_COM_REQMOD    	(0x4F)
@@ -63,14 +43,14 @@ typedef struct{
 }ST_CRDATA;
 
 							   //   LEN DATA
-const U1 TBL_STR_SETINVENTORY[] =	{8,	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-const U1 TBL_STR_SETCOMMOD1[] =		{1,	0x00};
-const U1 TBL_STR_SETMODE[] =		{7,	0x00,0x00,0x00,0x80,0x00,0x00,0x00};
-const U1 TBL_STR_SETCOMMOD2[] =		{1, 0x00};
-const U1 TBL_STR_REQMODE1[] =		{2, 0x90,0x00};
-const U1 TBL_STR_REQMODE2[] =		{2, 0x92,0x00};
-const U1 TBL_STR_REQMODE3[] =		{2, 0x90,0x00};
-const U1 TBL_STR_TERM[] =			{1, 0x00};
+const U2 TBL_STR_SETINVENTORY[] =	{8,	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+const U2 TBL_STR_SETCOMMOD1[] =		{1,	0x00};
+const U2 TBL_STR_SETMODE[] =		{7,	0x00,0x00,0x00,0x80,0x00,0x00,0x00};
+const U2 TBL_STR_SETCOMMOD2[] =		{1, 0x00};
+const U2 TBL_STR_REQMODE1[] =		{2, 0x90,0x00};
+const U2 TBL_STR_REQMODE2[] =		{2, 0x92,0x00};
+const U2 TBL_STR_REQMODE3[] =		{2, 0x90,0x00};
+const U2 TBL_STR_TERM[] =			{1, 0x00};
 //const U1 TBL_STR_[] =		{	};
 
 
@@ -147,8 +127,6 @@ const ST_CRDATA YP_TX_NOR_DATA_TBL[] = {
 /* [ 変数宣言 ]                                         		*/
 /* 																*/
 /*==============================================================*/
-
-
 
 
 
