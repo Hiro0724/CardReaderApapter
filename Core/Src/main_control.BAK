@@ -43,6 +43,7 @@
 extern osMailQId MainControlMailHandle;
 
 extern void	req_tx_cr_serial( U1 src_adr, U1 command, const U1 *p_data, U1 len );
+extern void	req_tx_yp_serial( U1 src_adr, U1 command, const U1 *p_data, U1 len );
 
 
 static Bool parse_yprx_serial( const U1 *p_buff, int len );
@@ -190,7 +191,7 @@ void MAIN_Init( void )
 static void init_cr_tx_dataset(void)
 {
 	const ST_CRDATA *ans;
-	U2 *pp;
+//	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
@@ -212,13 +213,13 @@ static void init_cr_tx_dataset(void)
 		++ans;
 	}
 
-
 	len = *ans->str;
-	pp = ans->str;
+//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-		p_data[(j-1)] = *(pp+j);
+//		p_data[(j-1)] = *(pp+j);
+		p_data[(j-1)] = *((ans->str)+j);
 	}
 
 	// コマンドセット
