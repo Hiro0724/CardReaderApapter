@@ -1,0 +1,14 @@
+diff a/Core/Src/main_control.c b/Core/Src/main_control.c	(rejected hunks)
+@@ -222,6 +222,12 @@
+ 		p_data[(j-1)] = *((ans->str)+j);
+ 	}
+ 
++
++
++
++
++
++
+ 	// �R�}���h�Z�b�g
+ 	///rggergeg
+ 
