@@ -228,8 +228,18 @@ static void init_cr_tx_dataset(void)
 
 
 
+<<<<<<< HEAD
+=======
 	// コマンドセット
+<<<<<<< HEAD
+	// コマンドセット
+	// コマンドセット
+	// コマンドセット
+>>>>>>> 1316b07a7069d622f0b7083b471b965ebcc0d687
+	// コマンドセット
+=======
 	///rggergeg
+>>>>>>> 59dc899d8e1d1f1fbfb58d524e7e1e610c24a4e4
 
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }

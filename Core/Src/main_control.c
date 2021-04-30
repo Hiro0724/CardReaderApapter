@@ -222,6 +222,7 @@ static void init_cr_tx_dataset(void)
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
+<<<<<<< HEAD
 
 
 
@@ -232,6 +233,8 @@ static void init_cr_tx_dataset(void)
 	// コマンドセット
 	///rggergeg
 
+=======
+>>>>>>> 1316b07a7069d622f0b7083b471b965ebcc0d687
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
 
