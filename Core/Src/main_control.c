@@ -222,6 +222,12 @@ static void init_cr_tx_dataset(void)
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
+
+
+
+
+
+
 	// コマンドセット
 	///rggergeg
 
