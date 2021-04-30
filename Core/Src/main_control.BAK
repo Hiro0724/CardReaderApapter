@@ -238,7 +238,7 @@ static void init_cr_tx_dataset(void)
 static void nor_cr_tx_dataset(void)
 {
 	const ST_CRDATA *ans;
-	U1 *pp;
+//	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
@@ -257,11 +257,12 @@ static void nor_cr_tx_dataset(void)
 
 
 	len = *ans->str;
-	pp = ans->str;
+//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-		p_data[(j-1)] = *(pp+j);
+//		p_data[(j-1)] = *(pp+j);
+		p_data[(j-1)] = *((ans->str)+j);
 	}
 
 	// コマンドセット
@@ -282,7 +283,7 @@ static void nor_cr_tx_dataset(void)
 static void nor_yp_tx_dataset(void)
 {
 	const ST_CRDATA *ans;
-	U1 *pp;
+//	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
@@ -306,11 +307,12 @@ static void nor_yp_tx_dataset(void)
 
 
 	len = *ans->str;
-	pp = ans->str;
+//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-		p_data[(j-1)] = *(pp+j);
+//		p_data[(j-1)] = *(pp+j);
+		p_data[(j-1)] = *((ans->str)+j);
 	}
 
 	// コマンドセット

@@ -223,6 +223,9 @@ static void init_cr_tx_dataset(void)
 	}
 
 	// コマンドセット
+	// コマンドセット
+	// コマンドセット
+	// コマンドセット
 
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
