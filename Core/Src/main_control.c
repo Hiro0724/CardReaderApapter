@@ -222,12 +222,6 @@ static void init_cr_tx_dataset(void)
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
-	// コマンドセット
-	// コマンドセット
-	// コマンドセット
-	// コマンドセット
-	// コマンドセット
-
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
 

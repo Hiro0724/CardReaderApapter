@@ -222,10 +222,21 @@ static void init_cr_tx_dataset(void)
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
+
+
+
+
+
+
+	// コマンドセット
+<<<<<<< HEAD
 	// コマンドセット
 	// コマンドセット
 	// コマンドセット
 	// コマンドセット
+=======
+	///rggergeg
+>>>>>>> 59dc899d8e1d1f1fbfb58d524e7e1e610c24a4e4
 
 	req_tx_cr_serial( 0x00, cmd ,&p_data[0], len );
 }
