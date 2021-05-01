@@ -52,7 +52,7 @@ extern void	req_tx_yp_serial( U1 src_adr, U1 command, const U1 *p_data, U1 len )
 
 
 static Bool parse_yprx_serial( const U1 *p_buff, int len );
-static Bool parse_crrx_serial( const U1 *p_buff, int len );
+static Bool parse_crrx_serial( const U1 *p_buff, int len , int evnt);
 static void init_cr_tx_dataset(void);
 static void nor_cr_tx_dataset(void);
 
@@ -135,7 +135,6 @@ typedef enum
     STATUS_TST,  			             // テスト動作中
 }e_MAIN_STATUS;
 
-static U1 init_seq;
 
 typedef enum
 {
@@ -143,6 +142,28 @@ typedef enum
     ERR_CR, 			 	    	     // カードリーダエラー（応答無し)
 }e_MAIN_ERR;
 
+
+typedef enum
+{
+    YP_TX_PRA_STATUS = 0, 	             // ステータス応答
+    YP_TX_PRA_RESET, 		             // リセット応答
+    YP_TX_PRA_KIND, 		             // 読み込みカード指定応答
+    YP_TX_PRA_REV0, 		    	     // 
+    YP_TX_PRA_REV1, 		    	     // 
+    YP_TX_PRA_CARDDATA 		             // リセット応答
+}e_YP_TX_PRA;
+
+
+static const uint8_t    tburtevt[] = {
+    QAPEV_INIT_CMDA,                     // CMD A受信
+    QAPEV_INIT_CMDB,                     // CMD B受信
+    QAPEV_INIT_CMDC,                     // CMD C受信
+    QAPEV_INIT_CMDD,                     // CMD D受信
+    QAPEV_INIT_CMDE,                     // CMD E受信
+    QAPEV_INIT_CMDF,                     // CMD F受信
+    QAPEV_INIT_CMDG,                     // CMD G受信
+    QAPEV_INIT_CMDH,                     // CMD H受信
+};
 
 /*==============================================================*/
 /* [ 変数定義]                                         			*/
@@ -154,6 +175,13 @@ static e_MAIN_STATUS	next_mainstatus;			/* 次状態番号	*/
 static e_MAIN_ERR		err_status;					/* エラー状態	*/
 
 F1 	read_cardkind;									// 読み込みカード種別
+
+static U1 init_seq;
+static U1 tx_cmd;
+
+
+static	int cr_rev_data[30];		
+
 
 /********************************************************************/
 /*																	*/
@@ -281,45 +309,41 @@ static void nor_cr_tx_dataset(void)
  *	戻り値	：なし
  *
  *****************************************************************************/
-static void nor_yp_tx_dataset(void)
+
+
+static void nor_yp_tx_dataset(U1 pra)
 {
 	const ST_CRDATA *ans;
-//	U2 *pp;
 
 	U1 p_data[30];
 	U1 i,j,len,cmd;
 		
 	//　データ部抽出
-
-//test
-	i = init_seq;
-
-
-
+	i = pra;
 	cmd = YP_TX_NOR_DATA_TBL[i].cmd;
 
-
 	ans = YP_TX_NOR_DATA_TBL;
-
 	for(j = 0; j < i; j++)
 	{
 		++ans;
 	}
 
-
 	len = *ans->str;
-//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-//		p_data[(j-1)] = *(pp+j);
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
+
 	// コマンドセット
-
-
-
+	//ステータスセット 
+	p_data[0] = mainstatus;
+	//カード種別セット 
+	p_data[1] = read_cardkind.byte;
+	//エラーコードセット 
+	p_data[2] = err_status;
+	
 	req_tx_yp_serial( 0x00, cmd ,&p_data[0], len );
 }
 
@@ -339,6 +363,8 @@ static void nor_yp_tx_dataset(void)
 
 void MainControlTaskEntry(void const * argument)
 {
+	int evnt,i;
+
 
   /* USER CODE BEGIN MainControlTaskEntry */
   /* Infinite loop */
@@ -358,7 +384,32 @@ void MainControlTaskEntry(void const * argument)
 							break;
 
 						case RX_CRSERIAL:		// from card reader
-				   			parse_crrx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len );
+
+
+							// 受信データ抽出
+						    for (i=0 ; i < p_Rxmail->len; i++){
+								cr_rev_data[i] = p_Rxmail->buff[i];		
+							}
+    
+							// イベントセット
+							switch (mainstatus)
+							{
+								case STATUS_INIT:		             // 初期動作中
+									evnt = tburtevt[(init_seq/2)];
+									break;
+							
+								case STATUS_NOR1: 		             // 通常1動作中
+									evnt = tburtevt[tx_cmd];
+									break;
+							
+								case STATUS_NOR2:		             // 通常2動作中
+									break;
+
+								case STATUS_TST: 		             // テスト動作中							
+									break;
+							}
+
+				   			parse_crrx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len , evnt);
 							break;
 
     					default:
@@ -458,59 +509,166 @@ void req_chgkind( U1 *p_kind)
 
 }
 
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x71 の　ACK　受信 
+//******************************************
+void	tsk000(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_SETCOMMOD1;
+	init_cr_tx_dataset();
+}
 
 //******************************************
 //		カードリーダ　イニシャル設定
 //		イニシャル開始 
-//      ACK　受信
+//      コマンド送信0x70 の　ACK　受信 
 //******************************************
-void	tsk000(void)
+void	tsk001(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_SETMODE;
+	init_cr_tx_dataset();
+}
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x4E の　ACK　受信 
+//******************************************
+void	tsk002(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_SETCOMMOD2;
+	init_cr_tx_dataset();
+}
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x70 の　ACK　受信 
+//******************************************
+void	tsk003(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_REQMODE1;
+	init_cr_tx_dataset();
+}
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x4F の　ACK　受信 
+//******************************************
+void	tsk004(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_REQMODE2;
+	init_cr_tx_dataset();
+}
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x4F の　ACK　受信 
+//******************************************
+void	tsk005(void)
+{
+
+
+	init_seq = INIT_SEQ_CR_TX_REQMODE3;
+	init_cr_tx_dataset();
+}
+
+
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      コマンド送信0x4F の　ACK　受信 
+//******************************************
+void	tsk006(void)
+{
+	mainstatus = STATUS_NOR1; 			 // 通常動作中
+	next_mainstatus = STATUS_NOR1; 		 // 通常動作中
+	init_seq = INIT_SEQ_CR_COMPLETE;
+
+	//YP SERIALに初期設定完了通知
+	nor_yp_tx_dataset(YP_TX_PRA_STATUS);
+}
+
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      ACK　受信 (設定コマンドに対する応答はACKでのみ判断)
+//******************************************
+void	tsk007(void)
 {
 
 	switch (init_seq)
 	{
 
 		case INIT_SEQ_CR_TX_SETINVENTORY:        // INVENTORY受信
-			
-			
+
+			//コマンド解除の応答の為、ACKのみ判定
+
 			init_seq = INIT_SEQ_CR_TX_SETCOMMOD1;
 			break;   
 
 		case INIT_SEQ_CR_TX_SETCOMMOD1:          // 通信モード設定受信
+
+			//現在ACKのみ判定
 
 			init_seq = INIT_SEQ_CR_TX_SETMODE;
 			break;   
 
 		case INIT_SEQ_CR_TX_SETMODE:        	// 動作モード設定受信
 
+			//現在ACKのみ判定
+
 			init_seq = INIT_SEQ_CR_TX_SETCOMMOD2;
 			break;   
 
 		case INIT_SEQ_CR_TX_SETCOMMOD2:       	// 通信モード設定受信
+
+			//現在ACKのみ判定
 
 			init_seq = INIT_SEQ_CR_TX_REQMODE1;
 			break;   
 
 		case INIT_SEQ_CR_TX_REQMODE1:            // ＲＯＭバージョン取得受信
 
+			//現在ACKのみ判定
+
 			init_seq = INIT_SEQ_CR_TX_REQMODE2;
 			break;   
 
 		case INIT_SEQ_CR_TX_REQMODE2:            // モジュールタイプ取得受信
+
+			//現在ACKのみ判定
 
 			init_seq = INIT_SEQ_CR_TX_REQMODE3;
 			break;   
 
 		case INIT_SEQ_CR_TX_REQMODE3:            // ＲＯＭバージョン取得受信
 
+			//現在ACKのみ判定
+
+
 			mainstatus = STATUS_NOR1; 			 // 通常動作中
 			next_mainstatus = STATUS_NOR1; 		 // 通常動作中
 			init_seq = INIT_SEQ_CR_COMPLETE;
 
 			//YP SERIALに初期設定完了通知
-init_seq = 0;
-			nor_yp_tx_dataset();
-		
+			nor_yp_tx_dataset(YP_TX_PRA_STATUS);
 
 			break;   
 	}
@@ -529,7 +687,7 @@ init_seq = 0;
 //		イニシャル開始 
 //      NACK　受信
 //******************************************
-void	tsk001(void)
+void	tsk008(void)
 {
 	switch (init_seq)
 	{
@@ -578,9 +736,17 @@ void	tsk001(void)
 /*------------------------------------------*/
 const	struct	jobtb tb_INIT[] =
 {
-    {CR_COM_ACK, STATUS_INIT,tsk000},			// ACK受信
+    {QAPEV_INIT_CMDA, STATUS_INIT,tsk000},		// 受信
+    {QAPEV_INIT_CMDB, STATUS_INIT,tsk001},		// 受信
+    {QAPEV_INIT_CMDC, STATUS_INIT,tsk002},		// 受信
+    {QAPEV_INIT_CMDD, STATUS_INIT,tsk003},		// 受信
+    {QAPEV_INIT_CMDE, STATUS_INIT,tsk004},		// 受信
+    {QAPEV_INIT_CMDF, STATUS_INIT,tsk005},		// 受信
+    {QAPEV_INIT_CMDG, STATUS_INIT,tsk006},		// 受信
 
-    {CR_COM_NACK,STATUS_INIT,tsk001},       	// NACK受信
+
+    {CR_COM_ACK, STATUS_INIT,tsk007},			// ACK受信
+    {CR_COM_NACK,STATUS_INIT,tsk008},       	// NACK受信
 
     {  		   0,    	   0,     0},           // 終端
 };
@@ -598,7 +764,7 @@ void	tsk010(void)
 		// テスト　test
 		
 init_seq = 1;
-		nor_yp_tx_dataset();				// YP Serialへ送信
+		nor_yp_tx_dataset(YP_TX_PRA_STATUS); // YP Serialへ送信
 		next_mainstatus = STATUS_NOR2; 		 // 通常動作中
 }
 
@@ -610,7 +776,7 @@ void	tsk012(void)
 {
 		// テスト test
 init_seq = 3;
-		nor_yp_tx_dataset();				// YP Serialへ送信
+		nor_yp_tx_dataset(YP_TX_PRA_STATUS);				// YP Serialへ送信
 		next_mainstatus = STATUS_NOR1; 		 // 通常動作中
 }
 
@@ -654,13 +820,20 @@ const struct jobtb *const tbevad[] = {
 //		カードリーダからのデータ
 //***************************************************
 
-static Bool parse_crrx_serial( const U1 *p_buff, int len )
+static Bool parse_crrx_serial( const U1 *p_buff, int len , int evnt)
 {
 
 	const struct jobtb	*p;
-	U1 evnt;
+//	U1 evnt,i;
 	
+#if 0
+	// 受信データ抽出
+    for (i=0 ; i < len; i++){
+		cr_rev_data[i] = p_buff[i];		
+	}
+
 	evnt = p_buff[CR_IDX_CMD];             /* イベント(＝受信コマンド)取り出し  */
+#endif
 
    	/* タスク検索    */
     for (p = tbevad[mainstatus] ; p->evnt != 0; p++){
