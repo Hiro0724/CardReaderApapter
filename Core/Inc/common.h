@@ -168,7 +168,6 @@ typedef union{
 #define DECCNT(cnt)     (((cnt) != 0) ? --(cnt) : (cnt))
 #define ABS_SUB(a,b)    ((a >= b) ? (a-b) : (b-a))
 
-// msオーダ待ち
 #define WAIT_LOOP_MS(MS)	{		\
 	U4	i;							\
 	for(i=MS*1600; i>0; i--){}	\

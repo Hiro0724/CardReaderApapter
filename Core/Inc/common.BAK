@@ -164,10 +164,6 @@ typedef union{
 #define	S4_MAX	((S4)2147483647)
 #define	S4_MIN	((S4)-2147483648)
 
-#define	NULL	0
-
-
-
 #define NELEMS(array)   (sizeof(array)/sizeof(array[0]))
 #define DECCNT(cnt)     (((cnt) != 0) ? --(cnt) : (cnt))
 #define ABS_SUB(a,b)    ((a >= b) ? (a-b) : (b-a))
