@@ -48,14 +48,6 @@
 
 
 
-/*------------- モジュールID定義(リリース) --------------*/
-#define		NONE_ID (0xFF)				/* 使用モジュール未確定				*/
-#define		OBD2COMM_MODULE		0x01	/* ＯＢＤ２通信モジュール			*/
-#define		DTCTCOMM_MODULE		0x02	/* 検知機器通信モジュール			*/
-#define		YPDVCOMM_MODULE		0x04	/* ＹＰ機器通信モジュール			*/
-
-
-
 /*------------- バッファサイズ定義 --------------*/
 #define		CRD_RCV_BUF_SIZE	(127)	/* カードリーダシリアル受信用バッファサイズ 	*/
 #define		YPS_RCV_BUF_SIZE	(20)	/* 共通シリアル受信用バッファサイズ				*/
@@ -64,12 +56,6 @@
 #define		YP_DEV_ID			0x01	/* YP製品デバイス					*/
 #define		OBD2_DEV_ID			0x02	/* OBD2アダプターデバイス			*/
 #define		DTC_DEV_ID			0x03	/* 検知機器							*/
-//#define		FCWS_DEV_ID			0x03	/* 車間距離検知デバイス				*/
-//#define		LKOW_DEV_ID			0x04	/* よそ見検知カメラ					*/
-
-/*------------- ブロックバッファ数定義 ----------*/
-#define		RAM_OBDBUFFER_MAX	(10)		/* 対OBDアダプタ受信専用バッファ最大個数定義 */
-#define		RAM_STDBUFFER_MAX	(40)	/* シリアル通信用バッファ最大個数定義*/
 
 
 

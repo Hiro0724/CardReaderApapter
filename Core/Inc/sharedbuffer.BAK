@@ -64,12 +64,6 @@
 #define		YP_DEV_ID			0x01	/* YP製品デバイス					*/
 #define		OBD2_DEV_ID			0x02	/* OBD2アダプターデバイス			*/
 #define		DTC_DEV_ID			0x03	/* 検知機器							*/
-//#define		FCWS_DEV_ID			0x03	/* 車間距離検知デバイス				*/
-//#define		LKOW_DEV_ID			0x04	/* よそ見検知カメラ					*/
-
-/*------------- ブロックバッファ数定義 ----------*/
-#define		RAM_OBDBUFFER_MAX	(10)		/* 対OBDアダプタ受信専用バッファ最大個数定義 */
-#define		RAM_STDBUFFER_MAX	(40)	/* シリアル通信用バッファ最大個数定義*/
 
 
 
@@ -82,35 +76,6 @@ typedef		struct	{
 
 
 
-
-
-/*-------------------------------------------------------*
- *	バッファメモリヘッダー型定義
- *-------------------------------------------------------*/
-typedef struct MMHEADER {
-	struct MMHEADER	*p_que;				/* バッファキューチェイン用nextポインタ	*/
-	U1	usedf;						/* 使用中状態フラグ　SB_ON / SB_OFF 	*/
-	U1	block_id;					/* メモリブロックID	Kind No. / BLOCK No.*/
-	U1   get_id;						/* メモリを確保したモジュールID			*/
-	U1	release_id;					/* メモリを解放するモジュールID(Bit単位)*/
-} BUFFERHDR;
-
-typedef	struct {
-	BUFFERHDR mhdr;
-	U1	msg[10];
-} MSGHDRREFF;
-
-
-/*-------------------------------------------------------*
- *	空きメモリブロックキュー型定義
- *-------------------------------------------------------*/
-typedef	struct {
-	U1		big_buff_cnt;
-	U1		little_buff_cnt;
-
-	BUFFERHDR	*p_big_buff_top;
-	BUFFERHDR	*p_little_buff_top;
-} BUFFERQUE;
 
 
 
