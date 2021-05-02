@@ -400,10 +400,13 @@ void MainControlTaskEntry(void const * argument)
 							
 								case STATUS_NOR1: 		             // ’Êí1“®ì’†
 									evnt = tburtevt[tx_cmd];
+									break;
 							
 								case STATUS_NOR2:		             // ’Êí2“®ì’†
+									break;
 
 								case STATUS_TST: 		             // ƒeƒXƒg“®ì’†							
+									break;
 							}
 
 				   			parse_crrx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len , evnt);
