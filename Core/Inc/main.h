@@ -71,6 +71,7 @@ typedef struct
 
 #define RX_YPSERIAL  (0)
 #define RX_CRSERIAL  (1)
+#define RX_CRSERIALRESPONSE  (2)
 
 
 

@@ -27,7 +27,6 @@
 
 
 #include "main.h"
-#include "gpsctl.h"
 #include "ypserial.h"
 #include "cyclic.h"
 #include "cmsis_os.h"
@@ -83,6 +82,8 @@ static void cyclic_routine(void)
 	/* カードリーダシリアル受信判定制御 */
 	CR_SerialRxCheak();
 
+	/* カードリーダシリアルレスポンス判定制御 */
+	CR_SerialResponseCheak();
 
 }
 

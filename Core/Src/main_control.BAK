@@ -1,9 +1,3 @@
-
-//test
-//test add
-//test add2
-//tets add2
-//tesr add3
 /******************************************************************************
  *
  *	開発機種			：免許証リーダ制御用アダプタ
@@ -91,6 +85,13 @@ typedef enum
 
 #define CR_KIND_INI		(0x04) //TYPE B
 
+#define CR_RES_LEN     (1)
+#define CR_RES_ERR     (1)
+#define CR_RES_ERRDECI (2)
+
+#define CR_RES_ERRTM   (500/5)
+
+
 
 /*==============================================================*/
 /* [ 定義宣言 ]                                         		*/
@@ -163,6 +164,7 @@ static const uint8_t    tburtevt[] = {
     QAPEV_INIT_CMDF,                     // CMD F受信
     QAPEV_INIT_CMDG,                     // CMD G受信
     QAPEV_INIT_CMDH,                     // CMD H受信
+    QAPEV_INIT_CMDH,                     // CMD H受信
 };
 
 /*==============================================================*/
@@ -178,6 +180,9 @@ F1 	read_cardkind;									// 読み込みカード種別
 
 static U1 init_seq;
 static U1 tx_cmd;
+
+static U2 crres_tm;
+static U1 crres_cnt;
 
 
 static	int cr_rev_data[30];		
@@ -234,6 +239,9 @@ static void init_cr_tx_dataset(void)
 		return;
 	}
 
+	crres_tm = CR_RES_ERRTM;
+
+
 	//　データ部抽出
 	i = init_seq / 2;
 
@@ -247,11 +255,9 @@ static void init_cr_tx_dataset(void)
 	}
 
 	len = *ans->str;
-//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-//		p_data[(j-1)] = *(pp+j);
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
@@ -289,11 +295,9 @@ static void nor_cr_tx_dataset(void)
 
 
 	len = *ans->str;
-//	pp = ans->str;
 
 	for(j = 1; j <= len; j++)
 	{
-//		p_data[(j-1)] = *(pp+j);
 		p_data[(j-1)] = *((ans->str)+j);
 	}
 
@@ -383,6 +387,7 @@ void MainControlTaskEntry(void const * argument)
 				   			parse_yprx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len );
 							break;
 
+
 						case RX_CRSERIAL:		// from card reader
 
 
@@ -412,7 +417,24 @@ void MainControlTaskEntry(void const * argument)
 				   			parse_crrx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len , evnt);
 							break;
 
-    					default:
+
+ 						case RX_CRSERIALRESPONSE:					// from card reader response timeout
+							switch (mainstatus)
+							{
+								case STATUS_INIT:		            // 初期動作中
+									if (p_Rxmail->buff[0] == CR_RES_ERR)
+									{
+										evnt = QAPEV_CRRESTM;			// カードリーダ応答タイムオーバ
+							   			parse_crrx_serial( (const U1 *)p_Rxmail->buff, p_Rxmail->len , evnt);
+
+									}else{
+										evnt = QAPEV_CRRESTM_DECI;			// カードリーダ応答タイムオーバ確定
+									}
+									break;
+							}
+							break;
+
+   					default:
 							break;
 					}
 				}
@@ -509,6 +531,41 @@ void req_chgkind( U1 *p_kind)
 
 }
 
+
+/*****************************************************************************
+ *
+ *	関数名称：void CR_SerialResponseCheak( void )
+ *	処理概要：CRｼﾘｱﾙﾚｽﾎﾟﾝｽ判定処理　（5ms周期処理）
+ *	引数	：なし
+ *	戻り値	：なし
+ *
+ *****************************************************************************/
+
+void CR_SerialResponseCheak( void )
+{
+	
+	if (crres_tm != 0)
+	{
+		if ((--crres_tm) == 0)
+		{
+			// カードリーダデータ送信後レスポンス無し判定
+   			MainControlBuff_t *p_mail = osMailAlloc(MainControlMailHandle, osWaitForever);
+		   	if( p_mail )
+		   	{
+   		    	p_mail->status = RX_CRSERIALRESPONSE;
+     		  	p_mail->len = CR_RES_LEN;					// fix 0x01
+      			p_mail->buff[0] = CR_RES_ERR;
+       			osMailPut(MainControlMailHandle, p_mail);
+   			}
+   		}
+   	}
+
+}
+
+
+
+
+
 //******************************************
 //		カードリーダ　イニシャル設定
 //		イニシャル開始 
@@ -517,8 +574,9 @@ void req_chgkind( U1 *p_kind)
 void	tsk000(void)
 {
 
-
 	init_seq = INIT_SEQ_CR_TX_SETCOMMOD1;
+
+	crres_cnt = 0;
 	init_cr_tx_dataset();
 }
 
@@ -605,128 +663,40 @@ void	tsk006(void)
 }
 
 
-//******************************************
-//		カードリーダ　イニシャル設定
-//		イニシャル開始 
-//      ACK　受信 (設定コマンドに対する応答はACKでのみ判断)
-//******************************************
-void	tsk007(void)
-{
-
-	switch (init_seq)
-	{
-
-		case INIT_SEQ_CR_TX_SETINVENTORY:        // INVENTORY受信
-
-			//コマンド解除の応答の為、ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_SETCOMMOD1;
-			break;   
-
-		case INIT_SEQ_CR_TX_SETCOMMOD1:          // 通信モード設定受信
-
-			//現在ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_SETMODE;
-			break;   
-
-		case INIT_SEQ_CR_TX_SETMODE:        	// 動作モード設定受信
-
-			//現在ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_SETCOMMOD2;
-			break;   
-
-		case INIT_SEQ_CR_TX_SETCOMMOD2:       	// 通信モード設定受信
-
-			//現在ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_REQMODE1;
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE1:            // ＲＯＭバージョン取得受信
-
-			//現在ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_REQMODE2;
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE2:            // モジュールタイプ取得受信
-
-			//現在ACKのみ判定
-
-			init_seq = INIT_SEQ_CR_TX_REQMODE3;
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE3:            // ＲＯＭバージョン取得受信
-
-			//現在ACKのみ判定
-
-
-			mainstatus = STATUS_NOR1; 			 // 通常動作中
-			next_mainstatus = STATUS_NOR1; 		 // 通常動作中
-			init_seq = INIT_SEQ_CR_COMPLETE;
-
-			//YP SERIALに初期設定完了通知
-			nor_yp_tx_dataset(YP_TX_PRA_STATUS);
-
-			break;   
-	}
-	
-
-	// カードリーダ初期設定送信
-	if (init_seq < INIT_SEQ_CR_COMPLETE)
-	{
-		init_cr_tx_dataset();
-	}
-}
-
 
 //******************************************
 //		カードリーダ　イニシャル設定
 //		イニシャル開始 
-//      NACK　受信
+//      応答無しタイムオーバ
 //******************************************
 void	tsk008(void)
 {
-	switch (init_seq)
+
+	if (++crres_cnt >= 3)
 	{
-
-		case INIT_SEQ_CR_TX_SETINVENTORY:        // INVENTORY受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_SETCOMMOD1:          // 通信モード設定受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_SETMODE:        	// 動作モード設定受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_SETCOMMOD2:       	// 通信モード設定受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE1:            // ＲＯＭバージョン取得受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE2:            // モジュールタイプ取得受信
-
-			// 再送信			
-			break;   
-
-		case INIT_SEQ_CR_TX_REQMODE3:            // ＲＯＭバージョン取得受信
-
-			// 再送信			
-			break;   
+		// カードリーダデータ送信後レスポンス無し判定
+		MainControlBuff_t *p_mail = osMailAlloc(MainControlMailHandle, osWaitForever);
+	   	if( p_mail )
+	   	{
+   	    	p_mail->status = RX_CRSERIALRESPONSE;
+    	  	p_mail->len = CR_RES_LEN;					// fix 0x01
+    		p_mail->buff[0] = CR_RES_ERRDECI;
+    		osMailPut(MainControlMailHandle, p_mail);
+   		}
+	}else{
+		// 再送信
+		init_cr_tx_dataset();
 	}
+
+}
+
+//******************************************
+//		カードリーダ　イニシャル設定
+//		イニシャル開始 
+//      応答無しタイムオーバ確定
+//******************************************
+void	tsk009(void)
+{
 
 
 }
@@ -744,9 +714,15 @@ const	struct	jobtb tb_INIT[] =
     {QAPEV_INIT_CMDF, STATUS_INIT,tsk005},		// 受信
     {QAPEV_INIT_CMDG, STATUS_INIT,tsk006},		// 受信
 
+ 
+    {QAPEV_CRRESTM, STATUS_INIT,tsk008},		// カード応答タイムオーバ
+    {QAPEV_CRRESTM_DECI, STATUS_INIT,tsk009},	// カード応答タイムオーバ確定
 
-    {CR_COM_ACK, STATUS_INIT,tsk007},			// ACK受信
-    {CR_COM_NACK,STATUS_INIT,tsk008},       	// NACK受信
+
+
+
+//   {CR_COM_ACK, STATUS_INIT,tsk007},			// ACK受信
+//   {CR_COM_NACK,STATUS_INIT,tsk008},       	// NACK受信
 
     {  		   0,    	   0,     0},           // 終端
 };
@@ -854,9 +830,6 @@ static Bool parse_crrx_serial( const U1 *p_buff, int len , int evnt)
 
     return true;
 }
-
-
-
 
 
 

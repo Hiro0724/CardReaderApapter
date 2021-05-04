@@ -64,8 +64,10 @@ enum {
 	/* タイマーイベントforアプリ	*/
 	QAPEV_TMEVT = (uint8_t)0x60,	/* タイマUPイベント	60h以上はタイマイベント	*/
 									/* 状態により名称を追加する。					*/
-	QAPEV_KEYTM,					/* キー操作タイマUP							0x61*/
-	QAPEV_TSTTM,					/* テストタイマ								0x62*/
+	QAPEV_CRRESTM,					/* カードリーダ応答タイムオーバー			0x61*/
+	QAPEV_CRRESTM_DECI,				/* カードリーダ応答タイムオーバー確定		0x62*/
+	QAPEV_KEYTM,					/* キー操作タイマUP							0x6*/
+	QAPEV_TSTTM,					/* テストタイマ								0x6*/
 };
 
 

@@ -40,7 +40,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
-extern 	Cyclic_Init(void);
+extern 	void Cyclic_Init(void);
 
 
 

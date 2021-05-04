@@ -34,6 +34,7 @@
 
 extern	void YP_SerialRxCheak(void);
 extern	void CR_SerialRxCheak(void);
+extern	void CR_SerialResponseCheak(void);
 extern	void YP_Init(void);
 extern	void CR_Init(void);
 extern	void MAIN_Init(void);
@@ -82,6 +83,8 @@ static void cyclic_routine(void)
 	/* カードリーダシリアル受信判定制御 */
 	CR_SerialRxCheak();
 
+	/* カードリーダシリアルレスポンス判定制御 */
+	CR_SerialResponseCheak();
 
 }
 
