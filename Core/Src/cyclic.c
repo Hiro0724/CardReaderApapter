@@ -1,4 +1,6 @@
 /* USER CODE BEGIN Header */
+
+
 /******************************************************************************
  *
  *	開発機種			：免許証リーダ制御用アダプタ
@@ -105,38 +107,6 @@ void CyclicTaskEntry(void const * argument)
         {
 			// 定期起動処理
             cyclic_routine();
-
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 773b0a093cbac69479eb0ad0fa3d6dba6855e5c1
-
-
-
-//test
-//test
-//test
-//test
-//test
-//test
-<<<<<<< HEAD
-=======
-//
-
->>>>>>> 773b0a093cbac69479eb0ad0fa3d6dba6855e5c1
 
 // TEST LED CONTROL
 #ifdef debag
