@@ -1,17 +1,10 @@
 //test 2
-test1
-//test 2
 //test 2
 //test 2
 //test 2
 
 /* USER CODE BEGIN Header */
 /**
-
-
-
-
-
   ******************************************************************************
   * @file           : main.c
   * @brief          : Main program body
