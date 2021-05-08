@@ -107,6 +107,7 @@ void CyclicTaskEntry(void const * argument)
             cyclic_routine();
 
 
+<<<<<<< HEAD
 
 
 
@@ -117,6 +118,11 @@ void CyclicTaskEntry(void const * argument)
 
 
 
+
+
+
+=======
+>>>>>>> 773b0a093cbac69479eb0ad0fa3d6dba6855e5c1
 
 
 
@@ -126,6 +132,11 @@ void CyclicTaskEntry(void const * argument)
 //test
 //test
 //test
+<<<<<<< HEAD
+=======
+//
+
+>>>>>>> 773b0a093cbac69479eb0ad0fa3d6dba6855e5c1
 
 // TEST LED CONTROL
 #ifdef debag
