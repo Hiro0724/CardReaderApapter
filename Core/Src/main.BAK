@@ -1,22 +1,5 @@
 /* USER CODE BEGIN Header */
 /**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ******************************************************************************
   * @file           : main.c
   * @brief          : Main program body
@@ -53,15 +36,6 @@
 /* USER CODE BEGIN PD */
 
 #define debag
-
-
-
-
-
-
-
-
-
 
 /* USER CODE END PD */
 
