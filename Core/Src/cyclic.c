@@ -107,6 +107,26 @@ void CyclicTaskEntry(void const * argument)
             cyclic_routine();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//test
+//test
+//test
+//test
+//test
+//test
+
 // TEST LED CONTROL
 #ifdef debag
 //	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
