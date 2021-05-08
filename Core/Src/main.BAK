@@ -1,9 +1,3 @@
-test1
-test1
-test1
-test1
-est1
-
 
 /* USER CODE BEGIN Header */
 /**
@@ -53,17 +47,6 @@ est1
 /********************************************************************/
 //extern void xxxx(void);
 //extern	uint8_t	;
-
-
-
-test2
-test2
-test2
-test2
-test2
-
-test2
-
 
 /* USER CODE END PM */
 
