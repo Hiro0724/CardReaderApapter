@@ -176,8 +176,8 @@ int main(void)
   /* USER CODE END 2 */
   /* Create the mutex(es) */
   /* definition and creation of myMutex01 */
-  osMutexStaticDef(myMutex01, &myMutex01ControlBlock);
-  myMutex01Handle = osMutexCreate(osMutex(myMutex01));
+//  osMutexStaticDef(myMutex01, &myMutex01ControlBlock);
+//  myMutex01Handle = osMutexCreate(osMutex(myMutex01));
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
