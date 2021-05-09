@@ -432,6 +432,11 @@ void MainControlTaskEntry(void const * argument)
 										evnt = QAPEV_CRRESTM_DECI;			// カードリーダ応答タイムオーバ確定
 									}
 									break;
+
+								case STATUS_NOR1: 		             // 通常1動作中
+								case STATUS_NOR2:		             // 通常2動作中
+								case STATUS_TST: 		             // テスト動作中							
+									break;
 							}
 							break;
 
