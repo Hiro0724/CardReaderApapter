@@ -214,6 +214,7 @@ void MAIN_Init( void )
 	
 
 	// カードリーダ初期設定開始
+	crres_cnt = 0;
 	init_cr_tx_dataset();
 
 }
